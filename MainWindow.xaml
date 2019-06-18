@@ -1,0 +1,34 @@
+﻿<Window x:Class="WPFShopOrderOverview.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFShopOrderOverview"
+        mc:Ignorable="d"  
+        Title="Customer Info" Height="450" Width="700">
+    <Grid Margin="-122,-58,-0.4,0">
+        <Label Content="First Name:" HorizontalAlignment="Left" Margin="132,69,0,0" VerticalAlignment="Top" Width="86"/>
+        <Label Content="Last Name:" HorizontalAlignment="Left" Margin="132,112,0,0" VerticalAlignment="Top" Width="67"/>
+        <Label Content="Email:" HorizontalAlignment="Left" Margin="132,159,0,0" VerticalAlignment="Top" Width="54"/>
+        <Label Content="orderid:" HorizontalAlignment="Left" Margin="132,202,0,0" VerticalAlignment="Top" Width="54" Height="27"/>
+        <TextBox x:Name="txtFirst" HorizontalAlignment="Left" Height="23" Margin="228,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtLast" HorizontalAlignment="Left" Height="23" Margin="228,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtMail" HorizontalAlignment="Left" Height="23" Margin="228,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="custBox" HorizontalAlignment="Left" Margin="426,69,0,0" VerticalAlignment="Top" Width="121" Height="26" SelectionChanged="CustBox_SelectionChanged"/>
+        <ListBox x:Name="listOrders" HorizontalAlignment="Left" Height="90" Margin="228,202,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ListOrders_SelectionChanged"/>
+        <ListView x:Name="orderDetailsView" HorizontalAlignment="Left" Height="110" Margin="156,316,0,0" VerticalAlignment="Top" Width="631" SelectionChanged="OrderDetailsView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="100" Header="Order entry id" DisplayMemberBinding="{Binding order_detail_entry_ID}"/>
+                    <GridViewColumn Width="100" Header="Product ID" DisplayMemberBinding="{Binding product_id}"/>
+                    <GridViewColumn Width="100" Header="Produkt navn" DisplayMemberBinding="{Binding product_name}"/>
+                    <GridViewColumn Width="120" Header="Antal" DisplayMemberBinding="{Binding quantity}"/>
+                    <GridViewColumn Width="100" Header="Pris" DisplayMemberBinding="{Binding combined_price}"/>
+                    <!-- lav til footer row -->
+                    <GridViewColumn Width="100" Header="Pris i alt" DisplayMemberBinding="{Binding order_total_price}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>

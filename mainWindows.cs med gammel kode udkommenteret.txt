@@ -1,0 +1,114 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace WPFShopOrderOverview
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public IQueryable<customer> customerList;
+
+        public IQueryable<order> orderList;
+        public MainWindow()
+        {
+            InitializeComponent();
+            var context = new ShopEntities();
+
+            customerList = from cust in context.customers select cust;
+
+            custBox.ItemsSource = customerList.ToList();
+            custBox.DisplayMemberPath = "customer_fname";
+            custBox.SelectedValuePath = "customer_id";
+
+        }
+
+        private void CustBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // empty order details when changing cust 
+            orderDetailsView.ItemsSource = null;
+
+            var selectedCust = custBox.SelectedValue;
+            using (var context = new ShopEntities())
+            {
+
+                var empChosen = customerList.FirstOrDefault(x => x.customer_id.Equals((int)selectedCust));
+
+                txtFirst.Text = empChosen.customer_fname.ToString();
+                txtLast.Text = empChosen.customer_lname.ToString();
+                txtMail.Text = empChosen.customer_email.ToString();
+
+                // gets cust orders where custid match cust chosen in combobox 
+                orderList = context.orders.Where(o => o.customer_id == (int)selectedCust);
+
+
+                listOrders.Items.Clear();
+                // Adds all orders of cust
+
+
+                foreach (order ord in orderList)
+                {
+                    listOrders.Items.Add(ord.order_id);
+                }
+
+
+
+
+                //  listOrders.ItemsSource = custOrders.ToList();
+
+                //custBox.DisplayMemberPath = "order_id";
+                //custBox.SelectedValuePath = "order_id"; 
+
+
+            }
+        }
+
+        private void updateOrderDetails(int orderID)
+        {
+            using (var context = new ShopEntities())
+            {
+
+                var ordDetails = from ordDet in context.orderDetails
+                                 join ord in context.orders on ordDet.order_id equals ord.order_id
+                                 join prod in context.products on ordDet.product_id equals prod.product_id
+                                 where ordDet.order_id == orderID
+                                 select new { ordDet.quantity, prod.product_name, ordDet.combined_price, ordDet.order_detail_entry_ID, prod.product_id, ord.order_total_price };
+                //string ordDetString = ""; 
+
+                //foreach (var item in ordDetails) 
+                //{ 
+                //    ordDetString += item.product_name.ToString() + " ";
+                //}
+                //MessageBox.Show(ordDetString);    
+
+                orderDetailsView.ItemsSource = ordDetails.ToList();
+            }
+        }
+
+        private void ListOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listOrders.SelectedValue != null)
+            {
+                int orderChosen = (int)listOrders.SelectedValue;
+
+                updateOrderDetails(orderChosen);
+            }
+
+
+        }
+    }
+}
+  

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFShopOrderOverview", "WPFShopOrderOverview.csproj", "{AC4695B0-24FE-4275-9206-AE79386D9B1D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC4695B0-24FE-4275-9206-AE79386D9B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC4695B0-24FE-4275-9206-AE79386D9B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC4695B0-24FE-4275-9206-AE79386D9B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC4695B0-24FE-4275-9206-AE79386D9B1D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1476FA59-DA0F-48B4-BA7A-28E2E0EB2A9C}
+	EndGlobalSection
+EndGlobal
